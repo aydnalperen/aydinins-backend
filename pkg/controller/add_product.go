@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type AddBookRequestBody struct {
+type AddProductRequestBody struct {
 	Name         string  `json:"name"`
 	Barcode      string  `json:"barcode"`
 	Image        string  `json:"image"`
@@ -17,8 +17,8 @@ type AddBookRequestBody struct {
 	SellPrice    float32 `json:"sellprice"`
 }
 
-func (h *Handler) AddBook(ctx *gin.Context) {
-	body := AddBookRequestBody{}
+func (h *Handler) AddProduct(ctx *gin.Context) {
+	body := AddProductRequestBody{}
 
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)

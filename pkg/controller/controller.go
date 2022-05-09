@@ -16,5 +16,9 @@ func RouteListener(r *gin.Engine, db *gorm.DB) {
 
 	routes := r.Group("/products")
 
-	routes.GET("/", h.GetProduct)
+	routes.GET("/:id", h.GetProduct)
+	routes.GET("/", h.GetProducts)
+	routes.POST("/", h.AddProduct)
+	routes.POST("/:id", h.DeleteProduct)
+	routes.POST("/:id", h.UpdateProduct)
 }

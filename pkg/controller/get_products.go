@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h *Handler) GetBooks(ctx *gin.Context) {
+func (h *Handler) GetProducts(ctx *gin.Context) {
 	var products []models.Product
 
 	if result := h.DB.Find(&products); result.Error != nil {
