@@ -3,6 +3,7 @@ package controller
 import (
 	"aydin-tracker/aydinins-backend/pkg/common/models"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,6 +20,12 @@ type UpdateProductRequestBody struct {
 
 func (h *Handler) UpdateProduct(ctx *gin.Context) {
 	id := ctx.Param("id")
+	key := ctx.Param("key")
+
+	if key != os.Getenv("KEY") {
+		ctx.AbortWithStatus(http.StatusBadRequest) // server will not continue to process due to wrong key value
+		return
+	}
 
 	body := UpdateProductRequestBody{}
 	var product models.Product

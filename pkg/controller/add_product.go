@@ -3,6 +3,7 @@ package controller
 import (
 	"aydin-tracker/aydinins-backend/pkg/common/models"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,7 +20,11 @@ type AddProductRequestBody struct {
 
 func (h *Handler) AddProduct(ctx *gin.Context) {
 	body := AddProductRequestBody{}
-
+	key := ctx.Param("key")
+	if key != os.Getenv("KEY") {
+		ctx.AbortWithStatus(http.StatusBadRequest) // server will not continue to process due to wrong key value
+		return
+	}
 	if err := ctx.BindJSON(&body); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)
 		return
