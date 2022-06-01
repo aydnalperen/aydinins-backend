@@ -3,9 +3,9 @@ package controller
 import (
 	"aydin-tracker/aydinins-backend/pkg/common/models"
 	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 )
 
 type AddProductRequestBody struct {
@@ -21,7 +21,7 @@ type AddProductRequestBody struct {
 func (h *Handler) AddProduct(ctx *gin.Context) {
 	body := AddProductRequestBody{}
 	key := ctx.Param("key")
-	if key != os.Getenv("KEY") {
+	if key != viper.Get("KEY").(string) {
 		ctx.AbortWithStatus(http.StatusBadRequest) // server will not continue to process due to wrong key value
 		return
 	}
